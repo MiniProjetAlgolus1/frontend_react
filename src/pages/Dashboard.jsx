@@ -1,3 +1,4 @@
+//IA content 
 import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 import api from "../api/axios";
@@ -26,7 +27,7 @@ function Dashboard() {
     { name: "Utilisateurs", total: stats.totalUsers },
     { name: "Tâches", total: stats.totalTasks },
   ];
-
+// FIN IA Content
   return (
     <div className="dashboard">
       <header>
