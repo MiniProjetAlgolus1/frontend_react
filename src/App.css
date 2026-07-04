@@ -1,3 +1,21 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  color: #1a1a1a;
+}
+
+.auth-page h1 {
+  color: #1a1a1a;
+  margin-top: 0;
+}
+
+.auth-page input {
+  background: white;
+  color: #1a1a1a;
+}
+
 * {
   box-sizing: border-box;
 }
