@@ -7,7 +7,7 @@ function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />; //if user edit the URL to /dashboard, he will be redirected to /login
   }
 
   return children;
