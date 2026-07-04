@@ -1,3 +1,4 @@
+//this page - IA content 100%
 import { createContext, useContext, useState } from "react";
 import api from "../api/axios";
 
@@ -21,9 +22,8 @@ export function AuthProvider({ children }) {
     setToken(newToken);
   };
 
-  const register = async (email, password) => {
-    await api.post("/api/register", { email, password });
-    // Après inscription, on connecte directement l'utilisateur
+  const register = async (email, password, firstName, lastName) => {
+    await api.post("/api/register", { email, password, firstName, lastName });
     await login(email, password);
   };
 
