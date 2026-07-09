@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, ListChecks, LogOut } from "lucide-react";
+import { LayoutDashboard, ListChecks, User, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 function Layout() {
@@ -17,6 +17,10 @@ function Layout() {
           <NavLink to="/tasks" className={({ isActive }) => (isActive ? "active" : "")}>
             <ListChecks size={18} />
             Tâches
+          </NavLink>
+          <NavLink to="/profile" className={({ isActive }) => (isActive ? "active" : "")}>
+            <User size={18} />
+            Profil
           </NavLink>
         </nav>
         <button className="sidebar-logout" onClick={logout}>
