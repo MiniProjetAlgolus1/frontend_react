@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, ListChecks, User, LogOut } from "lucide-react";
+import { LayoutDashboard, ListChecks, User, LogOut, Sun, Moon } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import api from "../api/axios";
 
 function Layout() {
   const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [firstName, setFirstName] = useState("");
 
-  // Récupère le prénom de l'utilisateur connecté pour le message d'accueil
   useEffect(() => {
     api
       .get("/api/me")
@@ -41,6 +42,11 @@ function Layout() {
             Profil
           </NavLink>
         </nav>
+
+        <button className="sidebar-theme" onClick={toggleTheme}>
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          {theme === "dark" ? "Mode clair" : "Mode sombre"}
+        </button>
 
         <button className="sidebar-logout" onClick={logout}>
           <LogOut size={18} />
