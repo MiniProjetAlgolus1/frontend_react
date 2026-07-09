@@ -12,8 +12,14 @@ const STATUS_LABELS = {
 };
 
 // Couleurs pour chaque part du camembert
+// const COLORS = {
+//   pending: "#9ca3af",
+//   in_progress: "#f59e0b",
+//   done: "#10b981",
+// };
+
 const COLORS = {
-  pending: "#9ca3af",
+  pending: "#6b7280",
   in_progress: "#f59e0b",
   done: "#10b981",
 };
@@ -68,11 +74,11 @@ function Dashboard() {
           <h3>Vue d'ensemble</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={barData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis allowDecimals={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2a2a38" />
+              <XAxis dataKey="name" stroke="#8b8b9e" />
+              <YAxis allowDecimals={false} stroke="#8b8b9e" />
               <Tooltip />
-              <Bar dataKey="total" fill="#4f46e5" />
+              <Bar dataKey="total" fill="#22d3ee" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

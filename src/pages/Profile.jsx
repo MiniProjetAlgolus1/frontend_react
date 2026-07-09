@@ -54,7 +54,7 @@ function Profile() {
   if (loading) return <p>Chargement...</p>;
 
   return (
-    <div className="page">
+    <div className="page profile-page">
       <h1>Mon profil</h1>
 
       <div className="profile-card">
