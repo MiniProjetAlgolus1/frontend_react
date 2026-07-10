@@ -925,3 +925,76 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .dialog-overlay, .dialog-box, .skeleton-line { animation: none; }
 }
+
+/* ===== Apparition des cartes de tâches en cascade ===== */
+.task-list .task-card {
+  animation: card-appear 0.4s backwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Les cartes apparaissent l'une après l'autre (effet cascade) */
+.task-list .task-card:nth-child(1) { animation-delay: 0.05s; }
+.task-list .task-card:nth-child(2) { animation-delay: 0.10s; }
+.task-list .task-card:nth-child(3) { animation-delay: 0.15s; }
+.task-list .task-card:nth-child(4) { animation-delay: 0.20s; }
+.task-list .task-card:nth-child(5) { animation-delay: 0.25s; }
+.task-list .task-card:nth-child(6) { animation-delay: 0.30s; }
+.task-list .task-card:nth-child(n+7) { animation-delay: 0.35s; }
+
+@keyframes card-appear {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Léger soulèvement au survol des cartes */
+.task-card {
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Transition d'entrée de page ===== */
+.page {
+  animation: page-in 0.35s ease;
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Cartes de stats + graphiques en apparition ===== */
+.cards .card {
+  animation: card-appear 0.4s backwards;
+}
+.cards .card:nth-child(1) { animation-delay: 0.05s; }
+.cards .card:nth-child(2) { animation-delay: 0.12s; }
+
+.charts-row .chart-box {
+  animation: card-appear 0.5s backwards;
+}
+.charts-row .chart-box:nth-child(1) { animation-delay: 0.18s; }
+.charts-row .chart-box:nth-child(2) { animation-delay: 0.26s; }
+
+/* Le bouton principal "presse" légèrement au clic */
+.task-form button:active:not(:disabled),
+.btn-save:active,
+.dialog-confirm:active,
+.profile-card button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Accessibilité : on coupe tout si l'utilisateur préfère moins d'animations */
+@media (prefers-reduced-motion: reduce) {
+  .task-list .task-card,
+  .page,
+  .cards .card,
+  .charts-row .chart-box {
+    animation: none;
+  }
+  .task-card:hover {
+    transform: none;
+  }
+}
