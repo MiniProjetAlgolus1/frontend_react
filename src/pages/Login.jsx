@@ -21,7 +21,8 @@ function Login() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-wrapper">
+      <div className="auth-page">
       <h1>Connexion</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -48,6 +49,7 @@ function Login() {
       <p>
         Pas encore de compte ? <Link to="/register">Inscris-toi</Link>
       </p>
+    </div>
     </div>
   );
 }

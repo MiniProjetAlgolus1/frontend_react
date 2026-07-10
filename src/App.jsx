@@ -8,11 +8,12 @@ import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import Profile from "./pages/Profile";
 import { ThemeProvider } from "./context/ThemeContext";
+import { ToastProvider } from "./context/ToastContext";
 import "./App.css";
 
 function App() {
   return (
-    
+    <ToastProvider>
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
@@ -36,6 +37,7 @@ function App() {
       </BrowserRouter>
     </AuthProvider>
     </ThemeProvider>
+    </ToastProvider>
   );
 }
 

@@ -665,3 +665,129 @@ button {
   background: var(--surface-hi);
   color: var(--accent);
 }
+
+/* ===== Toasts ===== */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 260px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  animation: toast-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.toast-success { border-left: 3px solid var(--status-done); }
+.toast-success svg { color: var(--status-done); }
+.toast-error { border-left: 3px solid var(--danger); }
+.toast-error svg { color: var(--danger); }
+.toast-info { border-left: 3px solid var(--accent); }
+.toast-info svg { color: var(--accent); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== Page auth animée ===== */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fond animé : dégradés qui flottent doucement */
+.auth-wrapper::before,
+.auth-wrapper::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.auth-wrapper::before {
+  width: 400px;
+  height: 400px;
+  background: var(--accent);
+  top: -100px;
+  left: -80px;
+  animation: float-1 12s ease-in-out infinite;
+}
+
+.auth-wrapper::after {
+  width: 350px;
+  height: 350px;
+  background: #7c3aed;
+  bottom: -100px;
+  right: -60px;
+  animation: float-2 14s ease-in-out infinite;
+}
+
+@keyframes float-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(60px, 40px); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, -30px); }
+}
+
+.auth-page {
+  position: relative;
+  z-index: 1;
+  animation: card-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+}
+
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Champs qui apparaissent en cascade */
+.auth-page label {
+  animation: field-in 0.5s backwards;
+}
+.auth-page label:nth-child(1) { animation-delay: 0.1s; }
+.auth-page label:nth-child(2) { animation-delay: 0.2s; }
+.auth-page label:nth-child(3) { animation-delay: 0.3s; }
+.auth-page label:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes field-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect de la préférence "réduire les animations" (accessibilité) */
+@media (prefers-reduced-motion: reduce) {
+  .auth-wrapper::before,
+  .auth-wrapper::after,
+  .auth-page,
+  .auth-page label,
+  .toast {
+    animation: none;
+  }
+}

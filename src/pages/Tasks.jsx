@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { useToast } from "../context/ToastContext";
 
 const STATUSES = [
   { value: "pending", label: "En attente" },
@@ -22,6 +23,8 @@ function Tasks() {
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+
+  const { showToast } = useToast();
 
   const loadTasks = () => {
     setLoading(true);
@@ -47,6 +50,7 @@ function Tasks() {
       await api.post("/api/tasks", form);
       setForm({ title: "", description: "", status: "pending" });
       loadTasks();
+      showToast("Tâche créée avec succès");
     } catch (err) {
       setError("Impossible de créer la tâche");
     } finally {
@@ -62,6 +66,7 @@ function Tasks() {
     } catch (err) {
       setError("Impossible de supprimer la tâche");
       setTasks(previous);
+      
     }
   };
 

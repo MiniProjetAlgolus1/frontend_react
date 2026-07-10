@@ -59,7 +59,8 @@ function Register() {
   };
 //FIN IA content
   return (
-    <div className="auth-page">
+    <div className="auth-wrapper">
+      <div className="auth-page">
       <h1>Inscription</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -88,6 +89,7 @@ function Register() {
       <p>
         Déjà inscrit ? <Link to="/login">Connecte-toi</Link>
       </p>
+    </div>
     </div>
   );
 }

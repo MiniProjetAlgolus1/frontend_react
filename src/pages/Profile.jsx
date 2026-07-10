@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useToast } from "../context/ToastContext";
 import api from "../api/axios";
 
 function Profile() {
@@ -8,6 +9,8 @@ function Profile() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [saving, setSaving] = useState(false);
+  const { showToast } = useToast();
+
 
   useEffect(() => {
     api
@@ -44,6 +47,7 @@ function Profile() {
       await api.put("/api/me", payload);
       setSuccess("Profil mis à jour avec succès");
       setForm({ ...form, password: "" });
+      showToast("Profil mis à jour avec succès");
     } catch (err) {
       setError(err.response?.data?.error || "Erreur lors de la mise à jour");
     } finally {
