@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useToast } from "../context/ToastContext";
+import ConfirmDialog from "../components/ConfirmDialog";
+import TaskSkeleton from "../components/TaskSkeleton";
 
 const STATUSES = [
   { value: "pending", label: "En attente" },
@@ -17,7 +19,7 @@ function Tasks() {
   const [error, setError] = useState(null);
   const [form, setForm] = useState({ title: "", description: "", status: "pending" });
   const [submitting, setSubmitting] = useState(false);
-
+  const [taskToDelete, setTaskToDelete] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ title: "", description: "", status: "pending" });
 
@@ -58,15 +60,21 @@ function Tasks() {
     }
   };
 
-  const handleDelete = async (id) => {
+  // Ouvre la confirmation
+  const askDelete = (task) => setTaskToDelete(task);
+
+  // Confirmée : on supprime vraiment
+  const confirmDelete = async () => {
+    const id = taskToDelete.id;
     const previous = tasks;
+    setTaskToDelete(null);
     setTasks((prev) => prev.filter((t) => t.id !== id));
     try {
       await api.delete(`/api/tasks/${id}`);
+      showToast("Tâche supprimée");
     } catch (err) {
-      setError("Impossible de supprimer la tâche");
+      showToast("Impossible de supprimer la tâche", "error");
       setTasks(previous);
-      
     }
   };
 
@@ -142,7 +150,7 @@ function Tasks() {
       {error && <p className="error">{error}</p>}
 
       {loading ? (
-        <p>Chargement...</p>
+        <TaskSkeleton count={3} />
       ) : visibleTasks.length === 0 ? (
         <p className="empty-state">Aucune tâche à afficher.</p>
       ) : (
@@ -181,7 +189,7 @@ function Tasks() {
                       ))}
                     </select>
                     <button className="task-edit-btn" onClick={() => startEdit(task)}>Modifier</button>
-                    <button className="task-delete" onClick={() => handleDelete(task.id)}>Supprimer</button>
+                    <button className="task-delete" onClick={() => askDelete(task)}>Supprimer</button>
                   </div>
                 </>
               )}
@@ -189,6 +197,13 @@ function Tasks() {
           ))}
         </div>
       )}
+      <ConfirmDialog
+        open={taskToDelete !== null}
+        title="Supprimer cette tâche ?"
+        message={`"${taskToDelete?.title}" sera définitivement supprimée. Cette action est irréversible.`}
+        onConfirm={confirmDelete}
+        onCancel={() => setTaskToDelete(null)}
+      />
     </div>
   );
 }
